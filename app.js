@@ -28,7 +28,7 @@ const User = new mongoose.model("User", userSchema);
 
 const customerSchema = new mongoose.Schema({
 _id: String,
-user: String,
+userId: String,
 firstName: String,
 lastName: String,
 phoneNumber: String,
@@ -47,6 +47,14 @@ const Customer = new mongoose.model("Customer", customerSchema);
 
 app.get("/", function(req,res){
   res.render("login");
+});
+
+app.get("/list", function(req,res){
+  res.render("list");
+});
+
+app.post("/login",function(req,res){
+  res.redirect("/list");
 });
 
 app.listen(3000, function() {

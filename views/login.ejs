@@ -4,6 +4,9 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+<link rel="stylesheet" href="/css/bootstrap-social.css">
 <link rel="stylesheet" href="css/login.css">
   <title>Login</title>
 </head>
@@ -11,7 +14,7 @@
 <body>
   <div class="container login">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <form class="from">
+    <form class="from" action="/login" method="POST">
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -22,9 +25,15 @@
         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
       </div>
 
-      <button type="submit" class="btn btn-lg btn-block btn-primary ">Submit</button>
-      <a href="result.html">Next</a>
+      <button type="submit" href="/list" class="btn btn-lg btn-block btn-primary ">Submit</button>
+      <h4>OR</h4>
+
+      <a href="/list">Next</a>
     </form>
+    <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
+      <i class="fab fa-google "></i>
+      Sign In with Google
+    </a>
   </div>
 
 

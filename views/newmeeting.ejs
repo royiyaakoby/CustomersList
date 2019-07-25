@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+  <!-- ////////////////////// Customer card///////////////////////// -->
+  <section class="info container">
+    <div class="Headings">
+      <h3>Enter a new meeting:</h3><br>
+      <h4>Customer:</h4> <span>#Customer Name Here</span>
+    </div>
+
+
+    <form>
+
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="meetingTitleInput">Title</label>
+          <input type="email" class="form-control " id="meetingTitleInput" placeholder="Title" required>
+
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="meetingDateInput">Date:</label>
+          <input type="date" class="form-control " id="meetingDateInput" placeholder="Date" required>
+
+        </div>
+        <!-- <div class="col-md-3 mb-3">
+      <label for="validationServer05">Zip</label>
+      <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
+      <div class="invalid-feedback">
+        Please provide a valid zip.
+      </div>
+    </div> -->
+      </div>
+
+      <div class="form-group">
+        <label for="meetingInput">Subject:</label>
+        <textarea class="form-control" id="meetingInput" rows="3"></textarea>
+      </div>
+      <!-- <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+      <label class="form-check-label" for="invalidCheck3">
+        Agree to terms and conditions
+      </label>
+      <div class="invalid-feedback">
+        You must agree before submitting.
+      </div>
+    </div>
+  </div> -->
+      <button class="btn btn-primary" type="submit">Enter Meeting</button>
+    </form>
+    <hr>
+  </section>
+
+
+
+<%- include('partials/footer') %>
