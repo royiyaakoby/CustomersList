@@ -8,13 +8,13 @@
 
 <link rel="stylesheet" href="/css/bootstrap-social.css">
 <link rel="stylesheet" href="css/login.css">
-  <title>Login</title>
+  <title>SignIn</title>
 </head>
 
 <body>
   <div class="container login">
-    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-    <form class="from" action="/login" method="POST">
+    <h1 class="h3 mb-3 font-weight-normal">Please signin</h1>
+    <form class="from" action="/signin" method="POST">
       <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="username">
@@ -28,12 +28,8 @@
       <button type="submit" class="btn btn-lg btn-block btn-primary ">Submit</button>
       <h4>OR</h4>
 
-      <a href="/signin">Next</a>
+
     </form>
-    <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-      <i class="fab fa-google "></i>
-      Sign In with Google
-    </a>
   </div>
 
 
