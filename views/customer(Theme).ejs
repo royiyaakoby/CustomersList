@@ -1,30 +1,28 @@
 <%- include('partials/header') %>
-
-
   <!-- ////////////////////// Customer card///////////////////////// -->
   <section class="info container">
-    <div class="Headings box">
-      <h3>Customer name: <%=customer.firstName%> <%=customer.lastName%></h3><br>
-      <h4>Customer ID:</h4> <span><%=customer._id%></span>
+    <div class="Headings">
+      <h3>Customer name: yournamehere</h3><br>
+      <h4>Customer ID:</h4> <span>#IDNUMBERHERE</span>
     </div>
 
 
     <div class="row ">
-      <div class="col-12 col-md-4 box">
+      <div class="col-12 col-md-4">
         <h4>Phone Number:</h4>
-        <spam><%=customer.phoneNumber%></spam>
+        <spam>050-0000000</spam>
       </div>
-      <div class="col-12 col-md-8 box">
+      <div class="col-12 col-md-8">
         <h4>Date Of Birth:</h4>
-        <spam><%=customer.birthDay%></spam>
+        <spam>30.2.1999</spam>
       </div>
     </div>
     <div class="row ">
-      <div class="col-12 box">
+      <div class="col-12">
         <h4>E-mail Adress:</h4>
-        <spam><%=customer.email%></spam>
+        <spam>notrealemail.gmule.con</spam>
       </div>
-      <div class="col-12 box">
+      <div class="col-12">
         <h4>Remarks:</h4>
         <p class="remarks">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Ultricies mi eget mauris pharetra et ultrices neque ornare.</p>
       </div>
@@ -38,27 +36,22 @@
   <!-- ///////////////////////////////// Meatings ////////////////////// -->
 
   <section class="meetings container">
-
-
-
 <button type="button" class="btn btn-outline-success btn-lg btn-block add-new-btn">Add a new metting</button>
-  <% meetings.forEach(function(note){ %>
     <div class="row ">
-      <div class="col-12 col-md-5"
+      <div class="col-12 col-md-5">
         <h4>Title:</h4>
-        <span> <%=note.title%> </span>
+        <span> Tilehere</span>
         </div>
         <div class="col-12 col-md-7">
           <h4>Date: </h4>
-          <span> <%=note.date%> </span>
+          <span> 09.09.2019</span>
         </div>
-        <p class="remarks"><%=note.content%></p>
+        <p class="remarks">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Ultricies mi eget mauris pharetra et ultrices neque ornare.</p>
 
       <button type="button"  class="btn btn-dark btn-sm meeting-btn">Edit Meeting</button>
     </div>
-<hr>
-<% }); %>
 
+<hr>
   </section>
 
 <%- include('partials/footer') %>

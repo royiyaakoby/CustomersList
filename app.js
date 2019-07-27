@@ -13,6 +13,7 @@ const findOrCreate = require('mongoose-findorcreate');
 const app = express();
 
 let currentUser = String;
+let currentUserID = String;
 
 app.set('view engine', 'ejs');
 
@@ -66,6 +67,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
     console.log(profile);
     currentUser = profile.displayName;
+
     User.findOrCreate({
       username: profile.displayName,
       googleId: profile.id
@@ -78,12 +80,13 @@ passport.use(new GoogleStrategy({
 
 
 const customerSchema = new mongoose.Schema({
-  _id: String,
+  // _id: String,
   userId: String,
   firstName: String,
   lastName: String,
   phoneNumber: String,
   email: String,
+  birthDay: String,
   remark: String,
   meetings: [{
     title: String,
@@ -97,19 +100,38 @@ const Customer = new mongoose.model("Customer", customerSchema);
 
 
 app.get("/", function(req, res) {
+
   res.render("login");
+
+
 });
 app.get("/signin", function(req, res) {
   res.render("signin");
 });
 
-
 app.get("/list", function(req, res) {
 
   if (req.isAuthenticated()) {
-    res.render("list", {
-      currentUser: currentUser
+    Customer.find({
+      userId: currentUserID
+    }, function(err, customer) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("list", {
+          currentUser: currentUser,
+          customer: customer
+          // phoneNumber: customer.phoneNumber,
+          // firstName : customer.firstName,
+          // lastName : customer.lastName,
+          // email :customer.email,
+          // customerID : customer._id
+        });
+
+      }
     });
+
+
   } else {
     res.redirect("/");
 
@@ -138,6 +160,40 @@ app.get("/customer", function(req, res) {
 
   }
 });
+
+app.get("/customer/:customerIdPage", function(req, res) {
+
+  if (req.isAuthenticated()) {
+    const currentID = req.params.customerIdPage;
+    Customer.findById(currentID , function(err, customer) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(customer);
+        const mettingArrey = customer.meetings;
+        res.render("customer", {
+          currentUser: currentUser,
+          customer: customer,
+          meetings : mettingArrey
+          // phoneNumber: customer.phoneNumber,
+          // firstName : customer.firstName,
+          // lastName : customer.lastName,
+          // email :customer.email,
+          // customerID : customer._id
+        });
+
+      }
+    });
+
+
+  } else {
+    res.redirect("/");
+
+  }
+});
+
+
+
 
 app.get("/logout", function(req, res) {
   req.logout();
@@ -169,8 +225,26 @@ app.post("/signin", function(req, res) {
 
 });
 
-app.post("/newcustomer", function(req,res){
-  console.log(req.body);
+app.post("/newcustomer", function(req, res) {
+
+  const newCustomer = new Customer({
+    // _id: req.body.phoneNumberInput,
+    userId: currentUserID,
+    firstName: req.body.firstNameInput,
+    lastName: req.body.lastNameInput,
+    phoneNumber: req.body.phoneNumberInput,
+    email: req.body.emailInput,
+    birthDay: req.body.birthDayInput,
+    remark: req.body.remarksTextInput
+  });
+  newCustomer.save(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/list");
+    }
+  });
+
 });
 
 //////////////////// LOGINS ////////////////////
@@ -184,11 +258,16 @@ app.post("/login", function(req, res) {
     password: password
   });
 
+
+
   req.login(user, function(err) {
     if (err) {
       res.redirect("/");
     } else {
-      passport.authenticate("local",{failureRedirect: '/fail'})(req, res, function() {
+      passport.authenticate("local", {
+        failureRedirect: '/fail'
+      })(req, res, function() {
+        currentUserID = req.user._id;
         res.redirect("/list");
       });
     }
@@ -207,6 +286,7 @@ app.get('/auth/google/customer',
   }),
   function(req, res) {
     // Successful authentication, redirect to secrets.
+    currentUserID = req.user._id;
     res.redirect('/list');
   });
 
