@@ -85,7 +85,7 @@ const customerSchema = new mongoose.Schema({
   phoneNumber: String,
   email: String,
   remark: String,
-  Meetings: [{
+  meetings: [{
     title: String,
     date: Date,
     content: String
@@ -119,7 +119,20 @@ app.get("/list", function(req, res) {
 app.get("/newcustomer", function(req, res) {
 
   if (req.isAuthenticated()) {
-    res.render("newcustomer");
+    res.render("newcustomer", {
+      currentUser: currentUser
+    });
+  } else {
+    res.redirect("/");
+
+  }
+});
+app.get("/customer", function(req, res) {
+
+  if (req.isAuthenticated()) {
+    res.render("customer", {
+      currentUser: currentUser
+    });
   } else {
     res.redirect("/");
 
@@ -156,6 +169,11 @@ app.post("/signin", function(req, res) {
 
 });
 
+app.post("/newcustomer", function(req,res){
+  console.log(req.body);
+});
+
+//////////////////// LOGINS ////////////////////
 app.post("/login", function(req, res) {
 
   const userName = req.body.username;
@@ -192,7 +210,7 @@ app.get('/auth/google/customer',
     res.redirect('/list');
   });
 
-
+/////////////////////////////////////////////
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
