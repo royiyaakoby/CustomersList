@@ -10,6 +10,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 
+
 const app = express();
 
 let currentUser = String;
@@ -65,7 +66,7 @@ passport.use(new GoogleStrategy({
     callbackURL: "http://localhost:3000/auth/google/customer"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
+
     currentUser = profile.displayName;
 
     User.findOrCreate({
@@ -90,7 +91,7 @@ const customerSchema = new mongoose.Schema({
   remark: String,
   meetings: [{
     title: String,
-    date: Date,
+    date: String,
     content: String
   }]
 });
@@ -98,9 +99,8 @@ const Customer = new mongoose.model("Customer", customerSchema);
 //TODO
 
 
-
+ //////////////////////// GET //////////////////////////
 app.get("/", function(req, res) {
-
   res.render("login");
 
 
@@ -110,13 +110,13 @@ app.get("/signin", function(req, res) {
 });
 
 app.get("/list", function(req, res) {
-
   if (req.isAuthenticated()) {
     Customer.find({
       userId: currentUserID
     }, function(err, customer) {
       if (err) {
         console.log(err);
+        res.redirect("/")
       } else {
         res.render("list", {
           currentUser: currentUser,
@@ -130,16 +130,13 @@ app.get("/list", function(req, res) {
 
       }
     });
-
-
   } else {
     res.redirect("/");
-
   }
 });
 
-app.get("/newcustomer", function(req, res) {
 
+app.get("/newcustomer", function(req, res) {
   if (req.isAuthenticated()) {
     res.render("newcustomer", {
       currentUser: currentUser
@@ -149,62 +146,80 @@ app.get("/newcustomer", function(req, res) {
 
   }
 });
-app.get("/customer", function(req, res) {
-
-  if (req.isAuthenticated()) {
-    res.render("customer", {
-      currentUser: currentUser
-    });
-  } else {
-    res.redirect("/");
-
-  }
-});
+// app.get("/customer", function(req, res) {
+//
+//   if (req.isAuthenticated()) {
+//     res.render("customer", {
+//       currentUser: currentUser
+//     });
+//   } else {
+//     res.redirect("/");
+//
+//   }
+// });
 
 app.get("/customer/:customerIdPage", function(req, res) {
 
   if (req.isAuthenticated()) {
     const currentID = req.params.customerIdPage;
-    Customer.findById(currentID , function(err, customer) {
+    Customer.findById(currentID, function(err, customer) {
       if (err) {
         console.log(err);
       } else {
-        console.log(customer);
-        const mettingArrey = customer.meetings;
-        res.render("customer", {
-          currentUser: currentUser,
-          customer: customer,
-          meetings : mettingArrey
-          // phoneNumber: customer.phoneNumber,
-          // firstName : customer.firstName,
-          // lastName : customer.lastName,
-          // email :customer.email,
-          // customerID : customer._id
-        });
+        if (currentUserID == customer.userId) {
+          const mettingArrey = customer.meetings;
+          res.render("customer", {
+            currentUser: currentUser,
+            customer: customer,
+            meetings: mettingArrey
+            // phoneNumber: customer.phoneNumber,
+            // firstName : customer.firstName,
+            // lastName : customer.lastName,
+            // email :customer.email,
+            // customerID : customer._id
+          });
+        } else {
+          res.redirect("/");
 
+        }
       }
     });
-
-
   } else {
     res.redirect("/");
 
   }
 });
 
+app.get("/editCustomer/:customerID", function(req,res){
+  const currentID = req.params.customerID;
 
+  if (req.isAuthenticated()) {
+    Customer.findById(req.params.customerID, function(err, customer){
+      if (err){
+        console.log(err);
+      } else {
+        res.render("editCustomer", {
+          currentUser: currentUser,
+          customer: customer
+        });
+      }
+    });
+  } else {
+  res.redirect('/');
+  }
 
+});
 
 app.get("/logout", function(req, res) {
   req.logout();
   res.redirect('/');
-
 });
 
 app.get("/fail", function(req, res) {
-
   res.redirect('/');
 });
+
+ //////////////////////// GET //////////////////////////
 
 app.post("/signin", function(req, res) {
   const userName = req.body.username;
@@ -224,6 +239,7 @@ app.post("/signin", function(req, res) {
   });
 
 });
+
 
 app.post("/newcustomer", function(req, res) {
 
@@ -247,6 +263,78 @@ app.post("/newcustomer", function(req, res) {
 
 });
 
+app.post("/editCustomer/:customerID", function(req,res){
+  const currentID = req.params.customerID;
+  Customer.update({
+    _id: currentID
+  }, {
+      firstName: req.body.firstNameInput,
+      lastName: req.body.lastNameInput,
+      phoneNumber: req.body.phoneNumberInput,
+      email: req.body.emailInput,
+      birthDay: req.body.birthDayInput,
+      remark: req.body.remarksTextInput
+  },
+function(err){
+  if (err){ console.log(err);}
+});
+res.redirect("/customer/"+currentID);
+});
+
+
+
+app.post("/newmeeting/:customerId", function(req, res) {
+
+  if (req.isAuthenticated()) {
+
+    const currentID = req.params.customerId;
+
+    Customer.findById(currentID, function(err, customer) {
+      if (err) {
+        console.log(err);
+      } else {
+
+        const mettingArrey = customer.meetings;
+        res.render("newmeeting", {
+          currentUser: currentUser,
+          customer: customer
+          // meetings: mettingArrey
+          // phoneNumber: customer.phoneNumber,
+          // firstName : customer.firstName,
+          // lastName : customer.lastName,
+          // email :customer.email,
+          // customerID : customer._id
+        });
+
+      }
+    });
+
+  } else {
+    res.redirect("/");
+
+  }
+});
+
+app.post("/newmeeting/add/:customerId", function(req, res) {
+  const currentID = req.params.customerId;
+  const addArrey = {
+    title: req.body.title,
+    date: req.body.date,
+    content: req.body.input
+  };
+
+  Customer.update({
+    _id: currentID
+  }, {
+    $push: {
+      meetings: [addArrey]
+    }
+  },
+function(err){
+  if (err){ console.log(err);}
+});
+  res.redirect("/customer/" + currentID);
+});
 //////////////////// LOGINS ////////////////////
 app.post("/login", function(req, res) {
 

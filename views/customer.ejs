@@ -26,22 +26,23 @@
       </div>
       <div class="col-12 box">
         <h4>Remarks:</h4>
-        <p class="remarks">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Ultricies mi eget mauris pharetra et ultrices neque ornare.</p>
+        <p class="remarks"><%=customer.remark%></p>
       </div>
-      <button type="button" class="btn btn-dark btn-sm edit-btn">Edit card</button>
+      <a class="btn btn-dark btn-sm edit-btn" href="/editCustomer/<%=customer._id%>">Edit card</a>
     </div>
 
 <hr>
   </section>
 
-<a href="newCostumer.html">Next</a>
+
   <!-- ///////////////////////////////// Meatings ////////////////////// -->
 
   <section class="meetings container">
 
 
-
-<button type="button" class="btn btn-outline-success btn-lg btn-block add-new-btn">Add a new metting</button>
+<form class="" action="/newmeeting/<%=customer._id%>" method="post">
+  <button type="submit" value="<%=customer._id%>"  class="btn btn-outline-success btn-lg btn-block add-new-btn">Add a new metting</button>
+</form>
   <% meetings.forEach(function(note){ %>
     <div class="row ">
       <div class="col-12 col-md-5"
@@ -52,7 +53,7 @@
           <h4>Date: </h4>
           <span> <%=note.date%> </span>
         </div>
-        <p class="remarks"><%=note.content%></p>
+        <p class="remarks" rows="3"><%=note.content%></p>
 
       <button type="button"  class="btn btn-dark btn-sm meeting-btn">Edit Meeting</button>
     </div>

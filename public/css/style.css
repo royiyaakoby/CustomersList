@@ -5,7 +5,7 @@ body {
 h1, h2, h3, h4, h5, h6,p {
   display: inline-block;
   margin: 10px;
-  
+
 }
 
 hr {
@@ -36,6 +36,7 @@ align-content: center;
   border-width: thin;
   background: #ffffff;
   padding: 10px 30px 30px 5px ;
+  width: 100%;
 
 }
 .meting {
