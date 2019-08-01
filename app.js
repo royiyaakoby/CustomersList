@@ -15,6 +15,9 @@ const app = express();
 
 let currentUser = String;
 let currentUserID = String;
+// let meetCusId = mongoose.Types.ObjectId();
+var ObjectId = mongoose.Types.ObjectId;
+let randomId = String(new ObjectId);
 
 app.set('view engine', 'ejs');
 
@@ -90,6 +93,7 @@ const customerSchema = new mongoose.Schema({
   birthDay: String,
   remark: String,
   meetings: [{
+    mettingId: String,
     title: String,
     date: String,
     content: String
@@ -99,7 +103,7 @@ const Customer = new mongoose.model("Customer", customerSchema);
 //TODO
 
 
- //////////////////////// GET //////////////////////////
+//////////////////////// GET //////////////////////////
 app.get("/", function(req, res) {
   res.render("login");
 
@@ -116,7 +120,7 @@ app.get("/list", function(req, res) {
     }, function(err, customer) {
       if (err) {
         console.log(err);
-        res.redirect("/")
+        res.redirect("/");
       } else {
         res.render("list", {
           currentUser: currentUser,
@@ -190,12 +194,12 @@ app.get("/customer/:customerIdPage", function(req, res) {
   }
 });
 
-app.get("/editCustomer/:customerID", function(req,res){
+app.get("/editCustomer/:customerID", function(req, res) {
   const currentID = req.params.customerID;
 
   if (req.isAuthenticated()) {
-    Customer.findById(req.params.customerID, function(err, customer){
-      if (err){
+    Customer.findById(req.params.customerID, function(err, customer) {
+      if (err) {
         console.log(err);
       } else {
         res.render("editCustomer", {
@@ -205,10 +209,43 @@ app.get("/editCustomer/:customerID", function(req,res){
       }
     });
   } else {
-  res.redirect('/');
+    res.redirect('/');
   }
 
 });
+
+
+app.get("/customer/:custimerID/editmeeting/:meetID", function(req, res) {
+  if (req.isAuthenticated()) {
+
+    const meetId = req.params.meetID;
+    const customerId = req.params.custimerID;
+    console.log(meetId);
+
+    Customer.findOne({
+      _id: customerId
+    }).select({
+      meetings: {
+        $elemMatch: {
+          mettingId: meetId
+        }
+      }
+    }).then(function(meet) {
+      const meeting = meet.meetings[0];
+      console.log(meeting.title);
+      res.render("editmeeting", {
+        customer: meet,
+        currentUser: currentUser,
+        meeting: meeting
+      });
+    });
+
+  } else {
+    res.redirect("/");
+
+  }
+});
+
 
 app.get("/logout", function(req, res) {
   req.logout();
@@ -219,7 +256,7 @@ app.get("/fail", function(req, res) {
   res.redirect('/');
 });
 
- //////////////////////// GET //////////////////////////
+//////////////////////// Post //////////////////////////
 
 app.post("/signin", function(req, res) {
   const userName = req.body.username;
@@ -263,22 +300,24 @@ app.post("/newcustomer", function(req, res) {
 
 });
 
-app.post("/editCustomer/:customerID", function(req,res){
+app.post("/editCustomer/:customerID", function(req, res) {
   const currentID = req.params.customerID;
   Customer.update({
-    _id: currentID
-  }, {
+      _id: currentID
+    }, {
       firstName: req.body.firstNameInput,
       lastName: req.body.lastNameInput,
       phoneNumber: req.body.phoneNumberInput,
       email: req.body.emailInput,
       birthDay: req.body.birthDayInput,
       remark: req.body.remarksTextInput
-  },
-function(err){
-  if (err){ console.log(err);}
-});
-res.redirect("/customer/"+currentID);
+    },
+    function(err) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  res.redirect("/customer/" + currentID);
 });
 
 
@@ -318,23 +357,69 @@ app.post("/newmeeting/:customerId", function(req, res) {
 app.post("/newmeeting/add/:customerId", function(req, res) {
   const currentID = req.params.customerId;
   const addArrey = {
+    // mettingId : meetid,
+    mettingId: randomId,
     title: req.body.title,
     date: req.body.date,
     content: req.body.input
   };
 
   Customer.update({
-    _id: currentID
-  }, {
-    $push: {
-      meetings: [addArrey]
-    }
-  },
-function(err){
-  if (err){ console.log(err);}
-});
+      _id: currentID
+    }, {
+      $push: {
+        meetings: [addArrey]
+      }
+    },
+    function(err) {
+      if (err) {
+        console.log(err);
+      }
+    });
   res.redirect("/customer/" + currentID);
 });
+
+
+app.post("/customer/:customerID/editmeeting/:meetingId", function(req, res) {
+
+  const meetId = req.params.meetingId;
+  const customerId = req.params.customerID;
+  const meet = req.body;
+
+  console.log(customerId);
+  console.log(meetId);
+  Customer.update({
+    _id: customerId,
+    "meetings.mettingId": meetId
+  }, {
+    $set: {
+      "meetings.$.title": meet.title,
+      "meetings.$.date": meet.date,
+      "meetings.$.content": meet.input
+    }
+  }, function(err) {
+    if (err) {
+      console.log(err);
+    }
+  });
+  res.redirect("/customer/" + customerId);
+});
+// app.post("/editmeeting:meetId", function(req,res){
+// const meetId = req.params.meetID;
+// Customer.update({
+//   _id: meetId
+// }, {
+//
+// },
+// function(err){
+// if (err){ console.log(err);}
+// });
+// res.redirect("/customer/"+currentID);
+//
+//
+// });
+
+
 //////////////////// LOGINS ////////////////////
 app.post("/login", function(req, res) {
 

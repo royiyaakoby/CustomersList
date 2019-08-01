@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+  <!-- ////////////////////// Customer card///////////////////////// -->
+  <section class="info container">
+    <div class="Headings">
+      <h3>Edit meeting:</h3><br>
+      <h4>ID:</h4> <span><%=meeting.mettingId%>"</span>
+    </div>
+
+
+    <form action="/customer/<%=customer._id%>/editmeeting/<%=meeting.mettingId%>" method="post">
+
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="meetingTitleInput">Title</label>
+          <input type="text" class="form-control " id="meetingTitleInput" value="<%=meeting.title%>" name="title" required>
+
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="meetingDateInput">Date:</label>
+          <input type="date" class="form-control " id="meetingDateInput" value="<%=meeting.date%>" name="date" required>
+
+        </div>
+        <!-- <div class="col-md-3 mb-3">
+      <label for="validationServer05">Zip</label>
+      <input type="text" class="form-control is-invalid" id="validationServer05" placeholder="Zip" required>
+      <div class="invalid-feedback">
+        Please provide a valid zip.
+      </div>
+    </div> -->
+      </div>
+
+      <div class="form-group">
+        <label for="meetingInput">Subject:</label>
+        <textarea class="form-control" id="meetingInput" name="input"  rows="3"><%=meeting.content%></textarea>
+      </div>
+      <!-- <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
+      <label class="form-check-label" for="invalidCheck3">
+        Agree to terms and conditions
+      </label>
+      <div class="invalid-feedback">
+        You must agree before submitting.
+      </div>
+    </div>
+  </div> -->
+      <button class="btn btn-primary" type="submit">Enter Changes</button>
+    </form>
+    <hr>
+  </section>
+
+
+
+<%- include('partials/footer') %>

@@ -33,7 +33,7 @@
 
 <hr>
   </section>
-
+a
 
   <!-- ///////////////////////////////// Meatings ////////////////////// -->
 
@@ -42,21 +42,26 @@
 
 <form class="" action="/newmeeting/<%=customer._id%>" method="post">
   <button type="submit" value="<%=customer._id%>"  class="btn btn-outline-success btn-lg btn-block add-new-btn">Add a new metting</button>
-</form>
-  <% meetings.forEach(function(note){ %>
-    <div class="row ">
-      <div class="col-12 col-md-5"
-        <h4>Title:</h4>
-        <span> <%=note.title%> </span>
-        </div>
-        <div class="col-12 col-md-7">
-          <h4>Date: </h4>
-          <span> <%=note.date%> </span>
-        </div>
-        <p class="remarks" rows="3"><%=note.content%></p>
+</form >
 
-      <button type="button"  class="btn btn-dark btn-sm meeting-btn">Edit Meeting</button>
-    </div>
+  <% meetings.forEach(function(note){ %>
+<form class="" action="/editmeeting/<%=note._id%>" method="post">
+  </form>
+  <div class="row ">
+    <div class="col-12 col-md-5"
+      <h4>Title:</h4>
+      <span> <%=note.title%> </span>
+      </div>
+      <div class="col-12 col-md-7">
+        <h4>Date: </h4>
+        <span> <%=note.date%> </span>
+      </div>
+      <p class="remarks" rows="3"><%=note.content%></p>
+      <a  class="btn btn-dark btn-sm meeting-btn" href="/customer/<%=customer._id%>/editmeeting/<%=note.mettingId%>">Edit Meeting</a>
+    <!-- <button type="submit"  class="btn btn-dark btn-sm meeting-btn">Edit Meeting</button> -->
+  </div>
+<!-- </form> -->
+
 <hr>
 <% }); %>
 
