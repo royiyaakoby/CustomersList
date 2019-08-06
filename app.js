@@ -150,17 +150,7 @@ app.get("/newcustomer", function(req, res) {
 
   }
 });
-// app.get("/customer", function(req, res) {
-//
-//   if (req.isAuthenticated()) {
-//     res.render("customer", {
-//       currentUser: currentUser
-//     });
-//   } else {
-//     res.redirect("/");
-//
-//   }
-// });
+
 
 app.get("/customer/:customerIdPage", function(req, res) {
 
@@ -220,7 +210,6 @@ app.get("/customer/:custimerID/editmeeting/:meetID", function(req, res) {
 
     const meetId = req.params.meetID;
     const customerId = req.params.custimerID;
-    console.log(meetId);
 
     Customer.findOne({
       _id: customerId
@@ -232,7 +221,7 @@ app.get("/customer/:custimerID/editmeeting/:meetID", function(req, res) {
       }
     }).then(function(meet) {
       const meeting = meet.meetings[0];
-      console.log(meeting.title);
+
       res.render("editmeeting", {
         customer: meet,
         currentUser: currentUser,
@@ -274,6 +263,71 @@ app.post("/signin", function(req, res) {
       });
     }
   });
+
+});
+
+
+app.post("/list/search/:searchBy", function(req, res) {
+
+  const searchBy = req.params.searchBy;
+  const searchValue = req.body.search;
+
+
+  let renderList = (foundUsers) => {
+    res.render("list", {
+      currentUser: currentUser,
+      customer: foundUsers
+      // phoneNumber: customer.phoneNumber,
+      // firstName : customer.firstName,
+      // lastName : customer.lastName,
+      // email :customer.email,
+      // customerID : customer._id
+
+    });
+  };
+
+  switch (searchBy) {
+    case "phoneNumber":
+      Customer.find({
+        userId: currentUserID,
+        phoneNumber: searchValue
+      }, function(err, foundUsers) {
+        renderList(foundUsers);
+      });
+
+      break;
+    case "firstName":
+      Customer.find({
+        userId: currentUserID,
+        firstName: searchValue
+      }, function(err, foundUsers) {
+        renderList(foundUsers);
+      });
+
+      break;
+    case "lastName":
+      Customer.find({
+        userId: currentUserID,
+        lastName: searchValue
+      }, function(err, foundUsers) {
+        renderList(foundUsers);
+      });
+
+      break;
+    case "email":
+      Customer.find({
+        userId: currentUserID,
+        email: searchValue
+      }, function(err, foundUsers) {
+        renderList(foundUsers);
+      });
+
+      break;
+    default:
+      res.render("/list");
+
+  }
+
 
 });
 
@@ -324,34 +378,29 @@ app.post("/editCustomer/:customerID", function(req, res) {
 
 app.post("/newmeeting/:customerId", function(req, res) {
 
-  if (req.isAuthenticated()) {
+  const currentID = req.params.customerId;
 
-    const currentID = req.params.customerId;
+  Customer.findById(currentID, function(err, customer) {
+    if (err) {
+      console.log(err);
+    } else {
 
-    Customer.findById(currentID, function(err, customer) {
-      if (err) {
-        console.log(err);
-      } else {
+      const mettingArrey = customer.meetings;
+      res.render("newmeeting", {
+        currentUser: currentUser,
+        customer: customer
+        // meetings: mettingArrey
+        // phoneNumber: customer.phoneNumber,
+        // firstName : customer.firstName,
+        // lastName : customer.lastName,
+        // email :customer.email,
+        // customerID : customer._id
+      });
 
-        const mettingArrey = customer.meetings;
-        res.render("newmeeting", {
-          currentUser: currentUser,
-          customer: customer
-          // meetings: mettingArrey
-          // phoneNumber: customer.phoneNumber,
-          // firstName : customer.firstName,
-          // lastName : customer.lastName,
-          // email :customer.email,
-          // customerID : customer._id
-        });
+    }
+  });
 
-      }
-    });
 
-  } else {
-    res.redirect("/");
-
-  }
 });
 
 app.post("/newmeeting/add/:customerId", function(req, res) {
@@ -385,9 +434,6 @@ app.post("/customer/:customerID/editmeeting/:meetingId", function(req, res) {
   const meetId = req.params.meetingId;
   const customerId = req.params.customerID;
   const meet = req.body;
-
-  console.log(customerId);
-  console.log(meetId);
   Customer.update({
     _id: customerId,
     "meetings.mettingId": meetId
@@ -404,20 +450,37 @@ app.post("/customer/:customerID/editmeeting/:meetingId", function(req, res) {
   });
   res.redirect("/customer/" + customerId);
 });
-// app.post("/editmeeting:meetId", function(req,res){
-// const meetId = req.params.meetID;
-// Customer.update({
-//   _id: meetId
-// }, {
-//
-// },
-// function(err){
-// if (err){ console.log(err);}
-// });
-// res.redirect("/customer/"+currentID);
-//
-//
-// });
+
+app.post("/deleteCustomer/:customerId", function(req, res) {
+  Customer.deleteOne({
+    _id: req.params.customerId
+  }, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/list");
+    }
+  });
+});
+
+app.post("/customer/:customerId/deleteMeeting/:meetingId", function(req, res) {
+
+
+  Customer.findByIdAndUpdate(req.params.customerId, {
+    $pull: {
+      "meetings": {
+        "mettingId": req.params.meetingId
+      }
+    }
+  }, function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/customer/" + req.params.customerId);
+    }
+  });
+
+});
 
 
 //////////////////// LOGINS ////////////////////

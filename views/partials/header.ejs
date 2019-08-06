@@ -29,11 +29,24 @@
           <li class="nav-item">
             <a class="nav-link" href="/logout">log out</a>
           </li>
+
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Phone Number" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
+        <form method="post" class="form-inline my-2 my-lg-0">
+
+          <input class="form-control mr-sm-2" type="search" placeholder="Search Customer" aria-label="Search" name="search">
+          <div class="dropdown">
+            <button class="btn  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Search By:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button class="dropdown-item" type="submit" formaction="/list/search/phoneNumber">Phone Number</button>
+              <button class="dropdown-item" type="submit" formaction="/list/search/firstName">First Name</button>
+              <button class="dropdown-item" type="submit" formaction="/list/search/lastName">last Name</button>
+              <button class="dropdown-item" type="submit" formaction="/list/search/email">Email</button>
+            </div>
+          </div>
+          </form>
       </div>
     </nav>
   </div>

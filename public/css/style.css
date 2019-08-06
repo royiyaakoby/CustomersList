@@ -20,7 +20,6 @@ hr {
 }
 
 
-}
 .info {
 align-content: center;
   margin: 40px auto;
@@ -57,6 +56,23 @@ margin: 5px 0 10px 25px;
 .add-new-btn {
   margin: 30px auto 30px auto ;
 }
+
+.delBtn {
+  margin-left:10px;
+}
+.deleteBox{
+  text-align: center;
+
+
+}
+.delDiv {
+  padding: 30px;
+    display:none;
+}
+.btn-lg{
+  margin: 10px;
+}
+
 
 iinput::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

@@ -33,20 +33,19 @@
 
 <hr>
   </section>
-a
+
 
   <!-- ///////////////////////////////// Meatings ////////////////////// -->
 
   <section class="meetings container">
 
-
-<form class="" action="/newmeeting/<%=customer._id%>" method="post">
+<form  action="/newmeeting/<%=customer._id%>" method="post">
   <button type="submit" value="<%=customer._id%>"  class="btn btn-outline-success btn-lg btn-block add-new-btn">Add a new metting</button>
-</form >
+</form>
 
   <% meetings.forEach(function(note){ %>
 <form class="" action="/editmeeting/<%=note._id%>" method="post">
-  </form>
+
   <div class="row ">
     <div class="col-12 col-md-5"
       <h4>Title:</h4>
@@ -61,7 +60,7 @@ a
     <!-- <button type="submit"  class="btn btn-dark btn-sm meeting-btn">Edit Meeting</button> -->
   </div>
 <!-- </form> -->
-
+</form>
 <hr>
 <% }); %>
 

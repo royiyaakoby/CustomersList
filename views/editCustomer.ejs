@@ -45,9 +45,20 @@
       </div>
 
       <button class="btn btn-primary" type="submit">Submit Changes</button>
+      <button type="button" class="btn btn-danger delBtn" name="Delete">Delete</button>
     </form>
 
     <hr>
+  </section>
+  <section class="deleteBox container">
+    <div class=" border border-danger delDiv">
+      <h2>Are You Sure?</h2><br>
+
+      <button type="button" class="btn-lg btn-warning cancelBtn" name="Delete">Cancel</button>
+<form class="" action="/deleteCustomer/<%=customer._id%>" method="post">
+  <button type="submit" class="btn-lg btn-danger delBtn2 " name="Delete">Delete</button>
+</form>
+    </div>
   </section>
 
 
