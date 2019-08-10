@@ -71,7 +71,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
 
     currentUser = profile.displayName;
-
+console.log(accessToken);
     User.findOrCreate({
       username: profile.displayName,
       googleId: profile.id
