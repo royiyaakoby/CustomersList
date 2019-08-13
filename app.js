@@ -44,7 +44,7 @@ mongoose.set('useCreateIndex', true);
 const userSchema = new mongoose.Schema({
   username: String,
   password: String,
-  googleId: String,
+  googleId: String
 });
 
 userSchema.plugin(passportLocalMongoose);
