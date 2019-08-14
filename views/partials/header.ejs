@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="<%=leng.lang%>" dir="<%=leng.dir%>">
 
 <head>
   <meta charset="utf-8">
   <title>Customer</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/<%=leng.css%>.css">
 </head>
 
-<body>
+<body dir="<%=leng.dir%>">
 
   <!-- ///////////////////// NAVBAR ///////////////////// -->
   <div class="container">
@@ -18,32 +18,47 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/list">List</a>
+            <form method="post" class="form-inline my-2 my-lg-0">
+            <div class="dropdown">
+              <button class="btn  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                🌎
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button class="dropdown-item" type="submit" formaction="/userSetting/languge/eng">English</button>
+                <button class="dropdown-item"  type="submit" formaction="/userSetting/languge/heb">עברית</button>
+              </div>
+            </div>
+              </form>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="/list"><%=leng.heading.list%></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/newcustomer">New</a>
+            <a class="nav-link" href="/newcustomer"><%=leng.heading.new%></a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="/logout">log out</a>
+            <a class="nav-link" href="/logout"><%=leng.heading.logOut%></a>
           </li>
 
         </ul>
 
         <form method="post" class="form-inline my-2 my-lg-0">
-
-          <input class="form-control mr-sm-2" type="search" placeholder="Search Customer" aria-label="Search" name="search">
+          <input class="form-control mr-sm-2" type="search" placeholder="<%=leng.heading.searchCustomer%>" aria-label="Search" name="search">
           <div class="dropdown">
             <button class="btn  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Search By:
+              <%=leng.heading.searchBy%>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button class="dropdown-item" type="submit" formaction="/list/search/phoneNumber">Phone Number</button>
-              <button class="dropdown-item" type="submit" formaction="/list/search/firstName">First Name</button>
-              <button class="dropdown-item" type="submit" formaction="/list/search/lastName">last Name</button>
-              <button class="dropdown-item" type="submit" formaction="/list/search/email">Email</button>
+              <button class="dropdown-item" type="submit" formaction="/list/search/phoneNumber"><%=leng.heading.phoneNumber%></button>
+              <button class="dropdown-item" type="submit" formaction="/list/search/firstName"><%=leng.heading.firstName%></button>
+              <button class="dropdown-item" type="submit" formaction="/list/search/lastName"><%=leng.heading.lastName%></button>
+              <button class="dropdown-item" type="submit" formaction="/list/search/email"><%=leng.heading.email%></button>
             </div>
           </div>
           </form>

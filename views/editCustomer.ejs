@@ -2,7 +2,7 @@
   <!-- ////////////////////// Customer card///////////////////////// -->
   <section class="info container">
     <div class="Headings">
-      <h3>Edit Customer Card:</h3><br>
+      <h3><%=leng.titles.editCard%>:</h3><br>
       <!-- <h4>Customer ID:</h4> <span>#IDNUMBERHERE</span> -->
     </div>
 
@@ -10,16 +10,16 @@
     <form action="/editCustomer/<%=customer._id%>" method="POST">
       <div class="form-row">
         <div class="col-md-4 mb-3">
-          <label for="firstNameInput">First name</label>
+          <label for="firstNameInput"><%=leng.customer.firstName%></label>
           <input type="text" class="form-control "  id="firstNameInput" value="<%=customer.firstName%>"  name="firstNameInput" required>
         </div>
         <div class="col-md-4 mb-3">
-          <label for="lastNameInput">Last name</label>
+          <label for="lastNameInput"><%=leng.customer.lastName%></label>
           <input type="text" class="form-control" id="lastNameInput" value="<%=customer.lastName%>" value="" name="lastNameInput" required>
 
         </div>
         <div class="col-md-4 mb-3">
-          <label for="phoneNumberInput">Phone Number</label>
+          <label for="phoneNumberInput"><%=leng.customer.phoneNumber%></label>
           <input type="number" class="form-control " id="phoneNumberInput" value="<%=customer.phoneNumber%>" name="phoneNumberInput" required>
 
         </div>
@@ -27,12 +27,12 @@
 
       <div class="form-row">
         <div class="col-md-6 mb-3">
-          <label for="emailInput">Email</label>
+          <label for="emailInput"><%=leng.customer.email%></label>
           <input type="email" class="form-control " id="emailInput" value="<%=customer.email%>" name="emailInput" required>
 
         </div>
         <div class="col-md-3 mb-3">
-          <label for="birthDayInput">Birth Date</label>
+          <label for="birthDayInput"><%=leng.customer.birthDay%></label>
           <input type="date" class="form-control " id="birthDayInput" value="<%=customer.birthDay%>" name="birthDayInput" required>
 
         </div>
@@ -40,23 +40,23 @@
       </div>
 
       <div class="form-group">
-        <label for="remarksTextInput">Remarks</label>
+        <label for="remarksTextInput"><%=leng.customer.remark%></label>
         <textarea class="form-control" id="remarksTextInput" rows="3" placeholder="<%=customer.remark%>" name="remarksTextInput"><%=customer.remark%></textarea>
       </div>
 
-      <button class="btn btn-primary" type="submit">Submit Changes</button>
-      <button type="button" class="btn btn-danger delBtn" name="Delete">Delete</button>
+      <button class="btn btn-primary" type="submit"><%=leng.titles.save%></button>
+      <button type="button" class="btn btn-danger delBtn" name="Delete"><%=leng.titles.delete%></button>
     </form>
 
     <hr>
   </section>
   <section class="deleteBox container">
     <div class=" border border-danger delDiv">
-      <h2>Are You Sure?</h2><br>
+      <h2><%=leng.titles.aresure%></h2><br>
 
-      <button type="button" class="btn-lg btn-warning cancelBtn" name="Delete">Cancel</button>
+      <button type="button" class="btn-lg btn-warning cancelBtn" name="Delete"><%=leng.titles.cancel%></button>
 <form class="" action="/deleteCustomer/<%=customer._id%>" method="post">
-  <button type="submit" class="btn-lg btn-danger delBtn2 " name="Delete">Delete</button>
+  <button type="submit" class="btn-lg btn-danger delBtn2 " name="Delete"><%=leng.titles.delete%></button>
 </form>
     </div>
   </section>

@@ -4,31 +4,31 @@
   <!-- ////////////////////// Customer card///////////////////////// -->
   <section class="info container">
     <div class="Headings box">
-      <h3>Customer name: <%=customer.firstName%> <%=customer.lastName%></h3><br>
-      <h4>Customer ID:</h4> <span><%=customer._id%></span>
+      <h3><%=leng.customer.customerName%>: <%=customer.firstName%> <%=customer.lastName%></h3><br>
+      <h4><%=leng.customer.customerID%>:</h4> <span><%=customer._id%></span>
     </div>
 
 
     <div class="row ">
       <div class="col-12 col-md-4 box">
-        <h4>Phone Number:</h4>
+        <h4><%=leng.customer.phoneNumber%>:</h4>
         <spam><%=customer.phoneNumber%></spam>
       </div>
       <div class="col-12 col-md-8 box">
-        <h4>Date Of Birth:</h4>
+        <h4><%=leng.customer.birthDay%>:</h4>
         <spam><%=customer.birthDay%></spam>
       </div>
     </div>
     <div class="row ">
       <div class="col-12 box">
-        <h4>E-mail Adress:</h4>
+        <h4><%=leng.customer.email%>:</h4>
         <spam><%=customer.email%></spam>
       </div>
       <div class="col-12 box">
-        <h4>Remarks:</h4>
+        <h4><%=leng.customer.remark%>:</h4>
         <p class="remarks"><%=customer.remark%></p>
       </div>
-      <a class="btn btn-dark btn-sm edit-btn" href="/editCustomer/<%=customer._id%>">Edit card</a>
+      <a class="btn btn-dark btn-sm edit-btn" href="/editCustomer/<%=customer._id%>"><%=leng.titles.editCard%></a>
     </div>
 <!-- <a href="https://photos.app.goo.gl/AbeFqcj2zaNA5ixA8">link</a> -->
 
@@ -42,7 +42,7 @@
   <section class="meetings container">
 
 <form  action="/newmeeting/<%=customer._id%>" method="post">
-  <button type="submit" value="<%=customer._id%>"  class="btn btn-outline-success btn-lg btn-block add-new-btn">Add a new metting</button>
+  <button type="submit" value="<%=customer._id%>"  class="btn btn-outline-success btn-lg btn-block add-new-btn"> <%=leng.titles.addNewMeeting%> </button>
 </form>
 
   <% meetings.forEach(function(note){ %>
@@ -50,15 +50,15 @@
 
   <div class="row ">
     <div class="col-12 col-md-5"
-      <h4>Title:</h4>
+      <h4><%=leng.titles.meetingSubject%>:</h4>
       <span> <%=note.title%> </span>
       </div>
       <div class="col-12 col-md-7">
-        <h4>Date: </h4>
+        <h4><%=leng.titles.meetingDate%>: </h4>
         <span> <%=note.date%> </span>
       </div>
       <p class="remarks" rows="3"><%=note.content%></p>
-      <a  class="btn btn-dark btn-sm meeting-btn" href="/customer/<%=customer._id%>/editmeeting/<%=note.mettingId%>">Edit Meeting</a>
+      <a  class="btn btn-dark btn-sm meeting-btn" href="/customer/<%=customer._id%>/editmeeting/<%=note.mettingId%>"><%=leng.titles.editmeeting%></a>
     <!-- <button type="submit"  class="btn btn-dark btn-sm meeting-btn">Edit Meeting</button> -->
   </div>
 <!-- </form> -->

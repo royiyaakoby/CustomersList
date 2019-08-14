@@ -1,0 +1,99 @@
+body {
+
+  text-align: right;
+  background-color: #f9f7f7;
+}
+
+h1, h2, h3, h4, h5, h6,p {
+  display: inline-block;
+  margin: 10px;
+  
+
+}
+
+hr {
+  display: block;
+   margin-top: 0.5em;
+   margin-bottom: 0.5em;
+   margin-left: auto;
+   margin-right: auto;
+   border-style: inset;
+   border-width: 1px;
+
+}
+
+
+
+.info {
+align-content: center;
+  margin: 40px auto;
+  width: 65%;
+
+}
+.Headings{
+  margin-bottom:  10px;
+}
+
+.remarks {
+  border-style: double;
+  border-width: thin;
+  background: #ffffff;
+  padding: 10px 30px 30px 5px ;
+  width: 100%;
+
+}
+.meting {
+  border-style: double;
+  border-width: thin;
+  background: #ffffff;
+  padding: 10px 30px 30px 5px ;
+
+}
+
+.edit-btn {
+margin: 5px 0 10px 25px;
+}
+.meeting-btn {
+  margin: 15px;
+}
+
+.add-new-btn {
+  margin: 30px auto 30px auto ;
+}
+
+.delBtn {
+  margin-left:10px;
+}
+.deleteBox{
+  text-align: center;
+
+
+}
+.delDiv {
+  padding: 30px;
+    display:none;
+}
+.btn-lg{
+  margin: 10px;
+}
+
+
+iinput::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+ @media(max-width: 750px) {
+
+   body{
+     text-align: center;
+
+   }
+
+ }

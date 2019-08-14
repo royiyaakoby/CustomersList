@@ -4,16 +4,16 @@
 
   <section class="info container">
     <div class="Headings">
-      <h3>Customers:</h3><br>
+      <h3><%=leng.titles.customers%>:</h3><br>
       <!-- <h4>Customer:</h4> <span>#Customer Name Here</span> -->
     </div>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th scope="col">Phone</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Email</th>
+          <th scope="col"><%=leng.customer.phoneNumber%></th>
+          <th scope="col"><%=leng.customer.firstName%></th>
+          <th scope="col"><%=leng.customer.lastName%></th>
+          <th scope="col"><%=leng.customer.email%></th>
         </tr>
       </thead>
       <tbody>
@@ -23,7 +23,7 @@
           <td><%=cus.firstName%> </td>
           <td><%=cus.lastName%> </td>
           <td><%=cus.email%> </td>
-          <td><a class="btn btn-outline-primary" href="/customer/<%=cus._id%>">Enter Profile</a> </td>
+          <td><a class="btn btn-outline-primary" href="/customer/<%=cus._id%>"><%=leng.titles.enter%></a> </td>
         </tr>
         <%})%>
       </tbody>
