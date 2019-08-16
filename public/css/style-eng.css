@@ -22,8 +22,8 @@ hr {
 
 .info {
 align-content: center;
-  margin: 40px auto;
-  width: 65%;
+ margin: 40px auto;
+  /* width: 65%; */ 
 
 }
 .Headings{

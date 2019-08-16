@@ -77,6 +77,7 @@ function leng(userLeng){
 let leng = {};
   if (userLeng === "heb") {
     leng = {
+      manuClass: "ml-auto",
       css: "style-heb",
       dir : "rtl",
       lang : "heb",
@@ -121,6 +122,7 @@ let leng = {};
     return leng;
   } else {
     leng =  {
+      manuClass: "mr-auto",
       css: "style-eng",
       dir : "ltr",
       lang : "en",
