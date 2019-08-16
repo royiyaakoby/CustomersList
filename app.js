@@ -21,7 +21,7 @@ const app = express();
 let currentUser = String;
 let currentUserID = String;
 let userLeng =  leng("eng");
-// let meetCusId = mongoose.Types.ObjectId();
+
 var ObjectId = mongoose.Types.ObjectId;
 let randomId = String(new ObjectId);
 
@@ -136,11 +136,7 @@ app.get("/list", function(req, res) {
           currentUser: currentUser,
           customer: customer,
           leng : userLeng
-          // phoneNumber: customer.phoneNumber,
-          // firstName : customer.firstName,
-          // lastName : customer.lastName,
-          // email :customer.email,
-          // customerID : customer._id
+
         });
 
       }
@@ -179,11 +175,7 @@ app.get("/customer/:customerIdPage", function(req, res) {
             customer: customer,
             meetings: mettingArrey,
               leng : userLeng
-            // phoneNumber: customer.phoneNumber,
-            // firstName : customer.firstName,
-            // lastName : customer.lastName,
-            // email :customer.email,
-            // customerID : customer._id
+
           });
         } else {
           res.redirect("/");
