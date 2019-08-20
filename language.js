@@ -114,6 +114,8 @@ let leng = {};
         meetingSubject: "נושא פגישה",
         meetingDate : "תאריך",
         meetingBody: "תאור הפגישה",
+        addLink: "הוסף לינק",
+        linkLink: "לינק",
         delete: "מחק",
         cancel: 'ביטול',
           aresure : "אשר מחיקה"
@@ -159,6 +161,8 @@ let leng = {};
         meetingSubject: "Title",
         meetingDate : "Date",
         meetingBody: "Subject",
+        addLink: "Add Link",
+        linkLink: "Paste link here:",
         delete: "Delete",
         cancel: 'Cancel',
         aresure : "Are You Sure?"

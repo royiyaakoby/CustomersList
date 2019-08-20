@@ -1,5 +1,6 @@
 body {
   background-color: #f9f7f7;
+  margin-top: 30px;
 }
 
 h1, h2, h3, h4, h5, h6,p {
@@ -23,7 +24,7 @@ hr {
 .info {
 align-content: center;
  margin: 40px auto;
-  /* width: 65%; */ 
+  /* width: 65%; */
 
 }
 .Headings{
@@ -71,6 +72,10 @@ margin: 5px 0 10px 25px;
 }
 .btn-lg{
   margin: 10px;
+}
+
+.divPad {
+   margin: 20px auto;
 }
 
 

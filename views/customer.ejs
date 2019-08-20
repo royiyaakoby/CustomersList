@@ -12,17 +12,17 @@
     <div class="row ">
       <div class="col-12 col-md-4 box">
         <h4><%=leng.customer.phoneNumber%>:</h4>
-        <spam><%=customer.phoneNumber%></spam>
+        <h6><%=customer.phoneNumber%></h6>
       </div>
       <div class="col-12 col-md-8 box">
         <h4><%=leng.customer.birthDay%>:</h4>
-        <spam><%=customer.birthDay%></spam>
+        <h6><%=customer.birthDay%></h6>
       </div>
     </div>
     <div class="row ">
       <div class="col-12 box">
         <h4><%=leng.customer.email%>:</h4>
-        <spam><%=customer.email%></spam>
+        <h6><%=customer.email%></>
       </div>
       <div class="col-12 box">
         <h4><%=leng.customer.remark%>:</h4>
@@ -49,16 +49,17 @@
 <form class="" action="/editmeeting/<%=note._id%>" method="post">
 
   <div class="row ">
-    <div class="col-12 col-md-5"
-      <h4><%=leng.titles.meetingSubject%>:</h4>
-      <span> <%=note.title%> </span>
+    <div class="col-12 col-md-5 divPad">
+      <h4> <%=leng.titles.meetingSubject%>:</h4>
+      <h6> <%=note.title%> </h6>
       </div>
       <div class="col-12 col-md-7">
         <h4><%=leng.titles.meetingDate%>: </h4>
         <span> <%=note.date%> </span>
       </div>
       <p class="remarks" rows="3"><%=note.content%></p>
-      <a  class="btn btn-dark btn-sm meeting-btn" href="/customer/<%=customer._id%>/editmeeting/<%=note.mettingId%>"><%=leng.titles.editmeeting%></a>
+      <!-- <a class="btn btn-light" target="_blank" href="https://drive.google.com/open?id=0B-9eGBed95f8bXNZS2gtTHloNk0">Click me</a> -->
+      <a  class="btn btn-dark btn-sm meeting-btn edit-btn" href="/customer/<%=customer._id%>/editmeeting/<%=note.mettingId%>"><%=leng.titles.editmeeting%></a>
     <!-- <button type="submit"  class="btn btn-dark btn-sm meeting-btn">Edit Meeting</button> -->
   </div>
 <!-- </form> -->
