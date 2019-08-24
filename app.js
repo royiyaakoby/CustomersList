@@ -103,7 +103,11 @@ const customerSchema = new mongoose.Schema({
     mettingId: String,
     title: String,
     date: String,
-    content: String
+    content: String,
+    links: [{
+      linkName: String,
+      linkLink: String
+    }]
   }]
 });
 const Customer = new mongoose.model("Customer", customerSchema);
@@ -414,14 +418,30 @@ app.post("/newmeeting/:customerId", function(req, res) {
 });
 
 app.post("/newmeeting/add/:customerId", function(req, res) {
-let randomMeetId = uuidv1()
-  const currentID = req.params.customerId;
+let randomMeetId = uuidv1();
+const currentID = req.params.customerId;
+console.log(req.body.links);
+let linksArrey = req.body.links;
+let newLinksAeery = []
+
+// ( ()=>{
+//   for (let i = 1; i < 3  ; i++ ){
+//
+//     console.log(req.body.linkCount+iS);
+//   }
+//   console.log("why"+2);
+//
+// })()
+
+
   const addArrey = {
     // mettingId : meetid,
     mettingId: randomMeetId,
     title: req.body.title,
     date: req.body.date,
-    content: req.body.input
+    content: req.body.input,
+    links:req.body.links
+
   };
 
   Customer.update({
@@ -441,7 +461,7 @@ let randomMeetId = uuidv1()
 
 
 app.post("/customer/:customerID/editmeeting/:meetingId", function(req, res) {
-
+console.log(req.body);
   const meetId = req.params.meetingId;
   const customerId = req.params.customerID;
   const meet = req.body;
@@ -452,7 +472,8 @@ app.post("/customer/:customerID/editmeeting/:meetingId", function(req, res) {
     $set: {
       "meetings.$.title": meet.title,
       "meetings.$.date": meet.date,
-      "meetings.$.content": meet.input
+      "meetings.$.content": meet.input,
+      "meetings.$.links": meet.links
     }
   }, function(err) {
     if (err) {

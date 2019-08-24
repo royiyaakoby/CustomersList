@@ -28,7 +28,7 @@
         <h4><%=leng.customer.remark%>:</h4>
         <p class="remarks"><%=customer.remark%></p>
       </div>
-      <a class="btn btn-dark btn-sm edit-btn" href="/editCustomer/<%=customer._id%>"><%=leng.titles.editCard%></a>
+      <a class="btn btn-dark btn-sm edit-btn editCus-btn " href="/editCustomer/<%=customer._id%>"><%=leng.titles.editCard%></a>
     </div>
 <!-- <a href="https://photos.app.goo.gl/AbeFqcj2zaNA5ixA8">link</a> -->
 
@@ -39,7 +39,7 @@
 
   <!-- ///////////////////////////////// Meatings ////////////////////// -->
 
-  <section class="meetings container">
+  <section class="meetings border border-info container">
 
 <form  action="/newmeeting/<%=customer._id%>" method="post">
   <button type="submit" value="<%=customer._id%>"  class="btn btn-outline-success btn-lg btn-block add-new-btn"> <%=leng.titles.addNewMeeting%> </button>
@@ -59,6 +59,12 @@
       </div>
       <p class="remarks" rows="3"><%=note.content%></p>
       <!-- <a class="btn btn-light" target="_blank" href="https://drive.google.com/open?id=0B-9eGBed95f8bXNZS2gtTHloNk0">Click me</a> -->
+<div class="listLinks">
+<% note.links.forEach(function(link){ %>
+  <a class="btn btn-primary" href="<%=link.linkLink%>" target="_blank"><%=link.linkName%></a>
+<% }); %>
+</div>
+
       <a  class="btn btn-dark btn-sm meeting-btn edit-btn" href="/customer/<%=customer._id%>/editmeeting/<%=note.mettingId%>"><%=leng.titles.editmeeting%></a>
     <!-- <button type="submit"  class="btn btn-dark btn-sm meeting-btn">Edit Meeting</button> -->
   </div>

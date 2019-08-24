@@ -39,6 +39,17 @@ align-content: center;
   width: 100%;
 
 }
+
+.meetings{
+  /* border-style:groove; */
+  border-width: 2px;
+}
+
+.listLinks{
+width: 100%;
+padding: 10px;
+
+}
 .meting {
   border-style: double;
   border-width: thin;
@@ -47,11 +58,13 @@ align-content: center;
 
 }
 
+
+
 .edit-btn {
 margin: 5px 0 10px 25px;
 }
 .meeting-btn {
-  margin: 15px;
+  margin: 10px;
 }
 
 .add-new-btn {
@@ -78,6 +91,15 @@ margin: 5px 0 10px 25px;
    margin: 20px auto;
 }
 
+.btnRemEdit {
+  margin-left: 10px;
+  margin-top: 35px;
+  padding-bottom:13px;
+  height: 35px;
+  width: 40px;
+  border-radius:30%;
+  text-align: center;
+}
 
 iinput::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

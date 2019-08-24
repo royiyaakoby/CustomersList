@@ -27,13 +27,40 @@
         <label for="meetingInput"><%=leng.titles.meetingBody%>:</label>
         <textarea class="form-control" id="meetingInput" name="input"  rows="3"><%=meeting.content%></textarea>
       </div>
+<!-- On Progress -->
+
+
+<% meeting.links.forEach(function(link){%>
+  <div class='form-row linkdiv' <%=link._id%> '>
+    <div class='col-md-3 mb-3 '>
+      <label> <%=leng.titles.linkName%></label>
+      <input type='text' class='form-control linkName' placeholder='Link Name' name='links[][linkName]' value=<%=link.linkName%> >
+    </div>
+    <div class='col-md-6 mb-3'>
+      <label ><%=leng.titles.linkLink%></label>
+      <input type='text' class='form-control linkLink' placeholder='Link' name='links[][linkLink]' value=<%=link.linkLink%>>
+    </div>
+    <button type='button' class='btn btn-success btnRemEdit' value='<%=link._id%>'>-</button>
+  </div>
+<script type="text/javascript">
+  var linkDiv =  document.getElementsByClassName("linkdiv");
+  var linkName =  document.getElementsByClassName("linkName");
+  var linkLink =  document.getElementsByClassName("linkLink");
+  var btnRemEdit =  document.getElementsByClassName("btnRemEdit");
+  window.onload = function(){
+    linkEditName();
+  };
+</script>
+<%}) %>
+  <!-- On Progress -->
+  <button class="btn btn-success addLink" type="button" name="button"><%=leng.titles.addLink%></button>
 
       <button class="btn btn-primary" type="submit"><%=leng.titles.save%></button>
       <button type="button" class="btn btn-danger delBtn" name="Delete"><%=leng.titles.delete%></button>
     </form>
     <hr>
   </section>
-</section>
+
 <section class="deleteBox container">
   <div class=" border border-danger delDiv">
     <h2><%=leng.titles.aresure%></h2><br>
