@@ -1,0 +1,78 @@
+<%- include('partials/header') %>
+
+
+<section class="usersList container">
+  <div class="Headings">
+    <h3>List:</h3><br>
+    <!-- <h4>Customer:</h4> <span>#Customer Name Here</span> -->
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Customer </th>
+        <th scope="col">Id</th>
+        <th scope="col">Admin</th>
+        <th scope="col"> is Active?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% users.forEach(function(user){ %>
+        <th scope="row"><%=user.username%> </th>
+        <td><%=user._id%> </td>
+        <td><%=user.roll%> </td>
+
+        <% if (user.active ==="active"){ %>
+        <form class="" action="/user/activation/<%=user._id%>?action=disActived&roll=<%=user.roll%>" method="post">
+          <td><button class="badge badge-info" >Active</button> </td>
+        </form>
+        <%}else { %>
+<form class="" action="/user/activation/<%=user._id%>?action=actived&roll=<%=user.roll%>"" method="post">
+  <td><button class="badge badge-secondary" >Not Active</button></td>
+</form>
+
+
+        <%}%>
+        <td><button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#del<%=user._id%>">
+  Delete User
+</button>
+      </tr>
+      <div class="modal fade" id="del<%=user._id%>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Are you sure?!?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to delete the user: <br>
+              <h2><%=user.username%></h2> <br>
+              and all of its customers? <br>
+              <br>
+              this is CAN NOT undone!
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+<form class="" action="/deleteUser/<%=user._id%>" method="post">
+  <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+</form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <%})%>
+
+
+    </tbody>
+  </table>
+
+
+</section>
+<!-- Modal -->
+
+
+
+<%- include('partials/footer') %>

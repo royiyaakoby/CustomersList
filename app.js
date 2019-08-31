@@ -20,7 +20,7 @@ const app = express();
 
 let currentUser = String;
 let currentUserID = String;
-let userLeng =  leng("eng");
+let userLeng = leng("eng");
 
 var ObjectId = mongoose.Types.ObjectId;
 let randomId = String(new ObjectId);
@@ -51,7 +51,9 @@ const userSchema = new mongoose.Schema({
   username: String,
   password: String,
   googleId: String,
-  userLeng : String
+  userLeng: String,
+  roll: String,
+  active: String
 });
 
 userSchema.plugin(passportLocalMongoose);
@@ -78,7 +80,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, cb) {
 
     currentUser = profile.displayName;
-console.log(accessToken);
+    console.log(accessToken);
     User.findOrCreate({
       username: profile.displayName,
       googleId: profile.id,
@@ -139,7 +141,7 @@ app.get("/list", function(req, res) {
         res.render("list", {
           currentUser: currentUser,
           customer: customer,
-          leng : userLeng
+          leng: userLeng
 
         });
 
@@ -151,11 +153,35 @@ app.get("/list", function(req, res) {
 });
 
 
+app.get("/adminMaster", function(req, res) {
+  if (req.isAuthenticated()) {
+    User.findById(currentUserID, function(err, user) {
+      if (user.roll === "admin") {
+        User.find(function(err, users) {
+          res.render("adminMaster", {
+            currentUser: currentUser,
+            leng: userLeng,
+            users: users,
+            pass: process.env.MY_PONI,
+          });
+        })
+
+      } else {
+        res.redirect("/");
+      }
+    });
+
+  } else {
+    res.redirect("/");
+  }
+});
+
+
 app.get("/newcustomer", function(req, res) {
   if (req.isAuthenticated()) {
     res.render("newcustomer", {
       currentUser: currentUser,
-          leng : userLeng
+      leng: userLeng
     });
   } else {
     res.redirect("/");
@@ -178,7 +204,7 @@ app.get("/customer/:customerIdPage", function(req, res) {
             currentUser: currentUser,
             customer: customer,
             meetings: mettingArrey,
-              leng : userLeng
+            leng: userLeng
 
           });
         } else {
@@ -204,7 +230,7 @@ app.get("/editCustomer/:customerID", function(req, res) {
         res.render("editCustomer", {
           currentUser: currentUser,
           customer: customer,
-            leng : userLeng
+          leng: userLeng
         });
       }
     });
@@ -236,7 +262,7 @@ app.get("/customer/:custimerID/editmeeting/:meetID", function(req, res) {
         customer: meet,
         currentUser: currentUser,
         meeting: meeting,
-          leng : userLeng
+        leng: userLeng
       });
     });
 
@@ -264,7 +290,7 @@ app.post("/signin", function(req, res) {
   currentUser = userName;
   User.register({
     username: userName,
-    userLeng : "eng"
+    userLeng: "eng"
   }, password, function(err, user) {
     if (err) {
       console.log(err);
@@ -289,12 +315,7 @@ app.post("/list/search/:searchBy", function(req, res) {
     res.render("list", {
       currentUser: currentUser,
       customer: foundUsers,
-        leng : userLeng
-      // phoneNumber: customer.phoneNumber,
-      // firstName : customer.firstName,
-      // lastName : customer.lastName,
-      // email :customer.email,
-      // customerID : customer._id
+      leng: userLeng
 
     });
   };
@@ -402,7 +423,7 @@ app.post("/newmeeting/:customerId", function(req, res) {
       res.render("newmeeting", {
         currentUser: currentUser,
         customer: customer,
-          leng : userLeng
+        leng: userLeng
         // meetings: mettingArrey
         // phoneNumber: customer.phoneNumber,
         // firstName : customer.firstName,
@@ -418,20 +439,20 @@ app.post("/newmeeting/:customerId", function(req, res) {
 });
 
 app.post("/newmeeting/add/:customerId", function(req, res) {
-let randomMeetId = uuidv1();
-const currentID = req.params.customerId;
-console.log(req.body.links);
-let linksArrey = req.body.links;
-let newLinksAeery = []
+  let randomMeetId = uuidv1();
+  const currentID = req.params.customerId;
+  console.log(req.body.links);
+  let linksArrey = req.body.links;
+  let newLinksAeery = []
 
-// ( ()=>{
-//   for (let i = 1; i < 3  ; i++ ){
-//
-//     console.log(req.body.linkCount+iS);
-//   }
-//   console.log("why"+2);
-//
-// })()
+  // ( ()=>{
+  //   for (let i = 1; i < 3  ; i++ ){
+  //
+  //     console.log(req.body.linkCount+iS);
+  //   }
+  //   console.log("why"+2);
+  //
+  // })()
 
 
   const addArrey = {
@@ -440,7 +461,7 @@ let newLinksAeery = []
     title: req.body.title,
     date: req.body.date,
     content: req.body.input,
-    links:req.body.links
+    links: req.body.links
 
   };
 
@@ -461,7 +482,7 @@ let newLinksAeery = []
 
 
 app.post("/customer/:customerID/editmeeting/:meetingId", function(req, res) {
-console.log(req.body);
+  console.log(req.body);
   const meetId = req.params.meetingId;
   const customerId = req.params.customerID;
   const meet = req.body;
@@ -514,15 +535,72 @@ app.post("/customer/:customerId/deleteMeeting/:meetingId", function(req, res) {
 
 });
 
-app.post("/userSetting/languge/:language", function(req,res){
-User.update({_id:currentUserID},{ $set: { userLeng: req.params.language} },function(err){
-  if (!err){
-    userLeng = leng(req.params.language);
-    res.redirect("/list");
-  }
-});
+app.post("/userSetting/languge/:language", function(req, res) {
+  User.update({
+    _id: currentUserID
+  }, {
+    $set: {
+      userLeng: req.params.language
+    }
+  }, function(err) {
+    if (!err) {
+      userLeng = leng(req.params.language);
+      res.redirect("/list");
+    }
+  });
 
 });
+
+//////////////////// Admin post ////////////////////
+
+app.post("/user/activation/:userId", function(req, res) {
+  const action = req.query.action;
+  const thisUserId = req.params.userId;
+const roll = req.query.roll;
+  if (action === "actived") {
+
+    User.update({
+      _id: thisUserId
+    }, {
+      $set: {
+        active: "active"
+      }
+    }, function(err) {
+      if (!err)
+    {  res.redirect("/adminMaster");}
+    });
+  } else if (action === "disActived" && roll !== "admin" ) {
+    User.update({
+        _id: thisUserId
+      }, {
+        $set: {
+          active: "notActive"
+        }
+      }, function(err){
+        if (!err)
+      {  res.redirect("/adminMaster");}
+      }
+    );
+} else{
+  res.redirect("/adminMaster");
+}
+
+});
+
+app.post("/deleteUser/:userId",function(req,res){
+  const thisUserId = req.params.userId;
+Customer.deleteMany({ userId:thisUserId},function(err){
+  if (!err){
+    User.deleteOne({ _id: thisUserId }, function (err) {
+      if (err) {
+        console.log(err);
+      }
+    res.redirect("/adminMaster");
+    });
+  }
+});
+});
+
 
 //////////////////// LOGINS ////////////////////
 app.post("/login", function(req, res) {
@@ -565,7 +643,7 @@ app.get('/auth/google/customer',
   function(req, res) {
     // Successful authentication, redirect to secrets.
     currentUserID = req.user._id;
-userLeng = leng(req.user.userLeng);
+    userLeng = leng(req.user.userLeng);
     res.redirect('/list');
   });
 

@@ -20,6 +20,10 @@ hr {
 
 }
 
+.usersList{
+  align-content: center;
+   margin: 40px auto;  
+}
 
 .info {
 align-content: center;
