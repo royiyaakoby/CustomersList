@@ -22,7 +22,22 @@ h1, h2, h3, h4 {
   margin: 200px auto  ;
 }
 
-.btn {
+.backBtn {
+margin: 10px;
 
+}
+
+.notActiveBody{
+  align-items: center;
+  text-align: center;
+}
+.notActive {
+margin: 150px;
+
+
+}
+
+.signUpBtn{
+  display: none;
 
 }

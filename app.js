@@ -21,6 +21,7 @@ const app = express();
 let currentUser = String;
 let currentUserID = String;
 let userLeng = leng("eng");
+let userActive = String;
 
 var ObjectId = mongoose.Types.ObjectId;
 let randomId = String(new ObjectId);
@@ -129,7 +130,7 @@ app.get("/signin", function(req, res) {
 });
 
 app.get("/list", function(req, res) {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() &&  userActive === "active" ){
     Customer.find({
       userId: currentUserID
     }, function(err, customer) {
@@ -148,37 +149,40 @@ app.get("/list", function(req, res) {
       }
     });
   } else {
-    res.redirect("/");
+    res.redirect("/notActive");
   }
 });
 
-
-app.get("/adminMaster", function(req, res) {
-  if (req.isAuthenticated()) {
-    User.findById(currentUserID, function(err, user) {
-      if (user.roll === "admin") {
-        User.find(function(err, users) {
-          res.render("adminMaster", {
-            currentUser: currentUser,
-            leng: userLeng,
-            users: users,
-            pass: process.env.MY_PONI,
-          });
-        })
-
-      } else {
-        res.redirect("/");
-      }
-    });
-
-  } else {
-    res.redirect("/");
-  }
+app.get("/notActive",function(req,res){
+res.render("notActive");
 });
+
+// app.get("/adminMaster", function(req, res) {
+//   if (req.isAuthenticated()) {
+//     User.findById(currentUserID, function(err, user) {
+//       if (user.roll === "admin") {
+//         User.find(function(err, users) {
+//           res.render("adminMaster", {
+//             currentUser: currentUser,
+//             leng: userLeng,
+//             users: users,
+//             pass: process.env.MY_PONI,
+//           });
+//         })
+//
+//       } else {
+//         res.redirect("/");
+//       }
+//     });
+//
+//   } else {
+//     res.redirect("/");
+//   }
+// });
 
 
 app.get("/newcustomer", function(req, res) {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() &&  userActive === "active") {
     res.render("newcustomer", {
       currentUser: currentUser,
       leng: userLeng
@@ -192,7 +196,7 @@ app.get("/newcustomer", function(req, res) {
 
 app.get("/customer/:customerIdPage", function(req, res) {
 
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated()&&  userActive === "active") {
     const currentID = req.params.customerIdPage;
     Customer.findById(currentID, function(err, customer) {
       if (err) {
@@ -222,7 +226,7 @@ app.get("/customer/:customerIdPage", function(req, res) {
 app.get("/editCustomer/:customerID", function(req, res) {
   const currentID = req.params.customerID;
 
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated()&&  userActive === "active") {
     Customer.findById(req.params.customerID, function(err, customer) {
       if (err) {
         console.log(err);
@@ -242,7 +246,7 @@ app.get("/editCustomer/:customerID", function(req, res) {
 
 
 app.get("/customer/:custimerID/editmeeting/:meetID", function(req, res) {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated()&&  userActive === "active") {
 
     const meetId = req.params.meetID;
     const customerId = req.params.custimerID;
@@ -553,6 +557,34 @@ app.post("/userSetting/languge/:language", function(req, res) {
 
 //////////////////// Admin post ////////////////////
 
+
+
+app.get("/adminMaster/", function(req, res) {
+
+let pini = process.env.MY_PONI;
+
+  if (req.isAuthenticated()) {
+    User.findById(currentUserID, function(err, user) {
+      if (user.roll === "admin") {
+        User.find(function(err, users) {
+          res.render("adminMaster", {
+            currentUser: currentUser,
+            leng: userLeng,
+            users: users,
+            pass: process.env.MY_PONI,
+          });
+        });
+
+      } else {
+        res.redirect("/list");
+      }
+    });
+
+  } else {
+    res.redirect("/");
+  }
+});
+
 app.post("/user/activation/:userId", function(req, res) {
   const action = req.query.action;
   const thisUserId = req.params.userId;
@@ -624,6 +656,7 @@ app.post("/login", function(req, res) {
       })(req, res, function() {
         currentUserID = req.user._id;
         userLeng = leng(req.user.userLeng);
+        userActive = req.user.active;
         res.redirect("/list");
       });
     }
@@ -644,6 +677,7 @@ app.get('/auth/google/customer',
     // Successful authentication, redirect to secrets.
     currentUserID = req.user._id;
     userLeng = leng(req.user.userLeng);
+    userActive = req.user.active;
     res.redirect('/list');
   });
 

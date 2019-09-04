@@ -24,11 +24,11 @@
 
         <% if (user.active ==="active"){ %>
         <form class="" action="/user/activation/<%=user._id%>?action=disActived&roll=<%=user.roll%>" method="post">
-          <td><button class="badge badge-info" >Active</button> </td>
+          <td><button class="badge badge-info" type="submit" >Active</button> </td>
         </form>
         <%}else { %>
-<form class="" action="/user/activation/<%=user._id%>?action=actived&roll=<%=user.roll%>"" method="post">
-  <td><button class="badge badge-secondary" >Not Active</button></td>
+<form class="" action="/user/activation/<%=user._id%>?action=actived&roll=<%=user.roll%>" method="post">
+  <td><button class="badge badge-secondary" type="submit">Not Active</button></td>
 </form>
 
 

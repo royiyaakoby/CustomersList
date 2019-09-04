@@ -20,9 +20,14 @@ hr {
 
 }
 
+.linkadm{
+  border-style: none;
+  background-color: #f8f9fa;
+}
+
 .usersList{
   align-content: center;
-   margin: 40px auto;  
+   margin: 40px auto;
 }
 
 .info {

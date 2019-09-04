@@ -2,9 +2,16 @@
 
 let linkClick = 1;
 let attr = $("body").attr('dir');
-// let try1 =  document.getElementsByClassName("linkName")
-// let try1 =  document.getElementsByClassName("linkName")
+let key = [];
 
+$(".loginBody").keypress(function(press){
+   key.push(press.key);
+   let keyString = key.join("");
+
+  if (keyString === "newuseremailinput"){
+    $(".signUpBtn").show();
+  }
+});
 
 
 $(".delBtn").click(function(){
@@ -16,10 +23,6 @@ $(".cancelBtn").click(function(){
   $(".delDiv").fadeOut(300);
    $(".delBtn").fadeIn(300);
 });
-
-// $(".btnRemEdit").click(function(){
-//   $("."+this.value).remove();
-// });
 
 
 $(".addLink").click(function(){

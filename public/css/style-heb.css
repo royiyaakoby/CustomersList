@@ -29,6 +29,10 @@ hr {
   direction: ltr;
 
 }
+.linkadm{
+  border-style: none;
+  background-color: #f8f9fa;
+}
 
 .info {
 align-content: center;

@@ -11,38 +11,22 @@
   <title>Login</title>
 </head>
 
-<div class="alert alert-success" role="alert">
-  <h4 class="alert-heading">Your Acount is not Active Yet</h4>
-  <p>UYi</p>
-  <hr>
-  <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+<body class="container notActiveBody">
+  <!-- <div class="alert alert-primary notActive "  role="alert">
+    <h4 class="alert-heading">Thank you for registering</h4>
+    <p>You need to wait for the Admin to approve your account.</p>
+    <hr>
+    <p class="mb-0">Thank you for your patient.</p>
+    <a class="btn btn-primary backBtn" href="/">Go Back</a>
+  </div> -->
+
+  <div class="jumbotron container notActiveBody">
+  <h1 class="display-4">Thank you for registering</h1>
+  <p class="lead">You need to wait for the Admin to approve your account.</p>
+  <hr class="my-4">
+  <p>IThank you for your patient.</p>
+  <a class="btn btn-primary btn-lg" href="/" role="button">Go Back</a>
 </div>
-<body>
-  <div class="container login">
-    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-    <form class="from" action="/login" method="POST">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="username">
-
-      </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
-      </div>
-
-      <button type="submit" class="btn btn-lg btn-block btn-primary ">Submit</button>
-      <h4>OR</h4>
-
-      <a href="/signin">Next</a>
-    </form>
-    <a class="btn btn-block btn-social btn-google" href="/auth/google" role="button">
-      <i class="fab fa-google "></i>
-      Sign In with Google
-    </a>
-  </div>
-
-
 
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
